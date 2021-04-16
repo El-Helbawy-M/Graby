@@ -90,7 +90,7 @@ class _TransferScreenState extends State<TransferScreen> {
       ),
       //==========================================
       //==========================================
-      bottomNavigationBar: NavigationBar(
+      bottomNavigationBar: UserHomeNavigationBar(
         parentContext: context,
       ),
     );

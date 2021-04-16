@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graby/Data/Models/Driver.dart';
 import 'package:graby/Layout/Widgets/App%20AppBar.dart';
-import 'package:graby/Layout/Widgets/App%20AppBar.dart';
 import 'package:graby/Layout/Widgets/App%20NavigationBar.dart';
 import 'package:graby/Layout/Widgets/App%20TripCard.dart';
 
@@ -51,7 +50,7 @@ class _HistroyTripsScreenState extends State<HistroyTripsScreen> {
       ),
       //==========================================
       //==========================================
-      bottomNavigationBar: NavigationBar(
+      bottomNavigationBar: UserHomeNavigationBar(
         parentContext: context,
       ),
     );

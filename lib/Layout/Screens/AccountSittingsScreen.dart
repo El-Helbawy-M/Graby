@@ -119,7 +119,7 @@ class _AccountSittingsScreenState extends State<AccountSittingsScreen> {
       ),
       //======================================
       //======================================
-      bottomNavigationBar: NavigationBar(
+      bottomNavigationBar: UserHomeNavigationBar(
         parentContext: context,
       ),
     );

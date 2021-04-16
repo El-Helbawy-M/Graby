@@ -99,7 +99,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       ),
       //=============================================
       //=============================================
-      bottomNavigationBar: NavigationBar(
+      bottomNavigationBar: UserHomeNavigationBar(
         parentContext: context,
       ),
     );

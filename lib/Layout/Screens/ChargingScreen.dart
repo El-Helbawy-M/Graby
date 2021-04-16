@@ -88,7 +88,7 @@ class _ChargingScreenState extends State<ChargingScreen> {
       ),
       //==========================================
       //==========================================
-      bottomNavigationBar: NavigationBar(
+      bottomNavigationBar: UserHomeNavigationBar(
         parentContext: context,
       ),
     );
