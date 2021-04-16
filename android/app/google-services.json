@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "416662685584",
+    "project_id": "graby-920d4",
+    "storage_bucket": "graby-920d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416662685584:android:27404258a88f44272b1515",
+        "android_client_info": {
+          "package_name": "com.example.graby"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416662685584-8cr65i1824oi2uv2qno0d56pi9d4lcvi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.graby",
+            "certificate_hash": "1dcd836aaa2f36f1cd0c1e9268d774f8faba8407"
+          }
+        },
+        {
+          "client_id": "416662685584-n4gou25quiel6k4m1lirlntfd1c7ghgm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABK383xl1oS4WH1TcI_SbHYLYC6wdtY2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416662685584-n4gou25quiel6k4m1lirlntfd1c7ghgm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
