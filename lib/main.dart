@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
         'LoginScreen': (context) => LoginScreen(),
         'RegisterScreen': (context) => RegisterScreen(),
         'SplashScreen': (context) => SplashScreen(),
+        //bem
       },
       home: DriverHomeScreen(),
     );
