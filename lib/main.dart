@@ -5,7 +5,8 @@ import 'package:graby/Layout/Screens/Splash%20Screen.dart';
 import 'package:graby/Layout/Screens/Verfication%20Screen.dart';
 import 'Layout/Screens/AccountSittingsScreen.dart';
 import 'Layout/Screens/ChargingScreen.dart';
-import 'Layout/Screens/Home Screen.dart';
+import 'Layout/Screens/DriverHomeScreen.dart';
+import 'Layout/Screens/UserHomeScreen.dart';
 import 'Layout/Screens/Log in Screen.dart';
 import 'Layout/Screens/Register Screen.dart';
 import 'Layout/Screens/Transfer Screen.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         'RegisterScreen': (context) => RegisterScreen(),
         'SplashScreen': (context) => SplashScreen(),
       },
-      home: AccountSittingsScreen(),
+      home: DriverHomeScreen(),
     );
   }
 }

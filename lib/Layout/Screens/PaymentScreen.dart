@@ -213,7 +213,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ),
       //=============================================
       //=============================================
-      bottomNavigationBar: NavigationBar(
+      bottomNavigationBar: UserHomeNavigationBar(
         parentContext: context,
       ),
     );

@@ -50,7 +50,7 @@ class _HistroyTripsScreenState extends State<HistroyTripsScreen> {
       ),
       //==========================================
       //==========================================
-      bottomNavigationBar: NavigationBar(
+      bottomNavigationBar: UserHomeNavigationBar(
         parentContext: context,
       ),
     );

@@ -297,7 +297,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
       ),
       //==========================================
       //==========================================
-      bottomNavigationBar: NavigationBar(
+      bottomNavigationBar: UserHomeNavigationBar(
         parentContext: context,
       ),
     );
