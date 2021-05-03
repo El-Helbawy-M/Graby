@@ -6,10 +6,10 @@ import 'package:graby/Data/Models/Driver.dart';
 import 'LocationLayoutIcon.dart';
 
 class TripCard extends StatelessWidget {
-  const TripCard({this.driver});
+  const TripCard({this.data});
 
   //========================= Varibales
-  final Driver driver;
+  final Map<String, dynamic> data;
   //========================= End
 
   @override
@@ -52,7 +52,7 @@ class TripCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    driver.name,
+                    data['Driver Name'],
                     style: TextStyle(
                       fontSize: 20,
                     ),
@@ -85,7 +85,7 @@ class TripCard extends StatelessWidget {
                               ],
                             ),
                             Text(
-                              driver.phone,
+                              data['Phone'],
                               style: TextStyle(color: Colors.blue),
                             ),
                           ],
@@ -100,11 +100,11 @@ class TripCard extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
-                                    'موقف دمياط',
+                                    data['Start Point'],
                                     style: TextStyle(color: Colors.grey),
                                   ),
                                   Text(
-                                    "موقف المنصوره",
+                                    data['End Point'],
                                     style: TextStyle(color: Colors.grey),
                                   ),
                                 ],
@@ -142,14 +142,14 @@ class TripCard extends StatelessWidget {
                               ],
                             ),
                             Text(
-                              '12/3/2021\t2:30pm',
+                              data['Date Time'],
                               style: TextStyle(color: Colors.blue),
                             )
                           ],
                         ),
                         Expanded(child: SizedBox()),
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -170,7 +170,7 @@ class TripCard extends StatelessWidget {
                               ],
                             ),
                             Text(
-                              "ط د ر 11224",
+                              data['Car Id'],
                               textAlign: TextAlign.center,
                               style: TextStyle(color: Colors.blue),
                             ),
@@ -196,7 +196,7 @@ class TripCard extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 40),
                 child: Center(
                   child: Text(
-                    '   المبلغ :    2 جنيه ',
+                    '   المبلغ :    ${data['Price']} جنيه ',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,

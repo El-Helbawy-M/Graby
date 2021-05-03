@@ -1,12 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:graby/Data/Models/Driver.dart';
+import 'package:graby/Data/Models/User.dart';
 import 'package:graby/Layout/Widgets/App%20AppBar.dart';
 import 'package:graby/Layout/Widgets/App%20NavigationBar.dart';
 import 'package:graby/Layout/Widgets/App%20TripCard.dart';
 
 class HistroyTripsScreen extends StatefulWidget {
-  HistroyTripsScreen({this.data});
-  final Map<String, dynamic> data;
   @override
   _HistroyTripsScreenState createState() => _HistroyTripsScreenState();
 }
@@ -14,6 +14,8 @@ class HistroyTripsScreen extends StatefulWidget {
 class _HistroyTripsScreenState extends State<HistroyTripsScreen> {
   @override
   Widget build(BuildContext context) {
+    final User userPhone = ModalRoute.of(context).settings.arguments;
+    print(userPhone.phone);
     return Scaffold(
       appBar: appBar,
       //==========================================
@@ -37,12 +39,37 @@ class _HistroyTripsScreenState extends State<HistroyTripsScreen> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: 3,
-                itemBuilder: (context, index) => TripCard(
-                  driver: Driver('Mohamed', '+201094127310', 100, ''),
-                ),
+              child: StreamBuilder<DocumentSnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('User Tribes')
+                    .doc(userPhone.phone)
+                    .get()
+                    .asStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.data != null) {
+                    print(snapshot.data.data());
+                    return ListView(
+                      shrinkWrap: true,
+                      children: snapshot.data
+                          .data()
+                          .values
+                          .map(
+                            (billData) => TripCard(
+                              data: billData,
+                            ),
+                          )
+                          .toList(),
+                    );
+                  } else {
+                    return Center(
+                      child: SizedBox(
+                        child: Center(child: CircularProgressIndicator()),
+                        width: 150,
+                        height: 150,
+                      ),
+                    );
+                  }
+                },
               ),
             ),
           ],
@@ -52,6 +79,7 @@ class _HistroyTripsScreenState extends State<HistroyTripsScreen> {
       //==========================================
       bottomNavigationBar: UserHomeNavigationBar(
         parentContext: context,
+        index: 2,
       ),
     );
   }

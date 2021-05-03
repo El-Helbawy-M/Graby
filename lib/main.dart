@@ -6,10 +6,13 @@ import 'package:graby/Layout/Screens/Verfication%20Screen.dart';
 import 'Layout/Screens/AccountSittingsScreen.dart';
 import 'Layout/Screens/ChargingScreen.dart';
 import 'Layout/Screens/DriverHomeScreen.dart';
+import 'Layout/Screens/PointsScreen.dart';
+import 'Layout/Screens/TestScreen.dart';
 import 'Layout/Screens/UserHomeScreen.dart';
 import 'Layout/Screens/Log in Screen.dart';
 import 'Layout/Screens/Register Screen.dart';
 import 'Layout/Screens/Transfer Screen.dart';
+import 'Layout/Screens/UserProfileScreen.dart';
 import 'Layout/Screens/UserProfileScreen.dart';
 import 'Layout/Screens/Verfication Screen.dart';
 
@@ -31,13 +34,15 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
-        "r": (context) => VerfyScreen(),
         'LoginScreen': (context) => LoginScreen(),
         'RegisterScreen': (context) => RegisterScreen(),
         'SplashScreen': (context) => SplashScreen(),
-        //bem
+        'HistoryScreen': (context) => HistroyTripsScreen(),
+        'UserProfieScreen': (context) => UserProfileScreen(),
+        'UserHomeScreen': (context) => UserHomeScreen(),
+        'PointsScreen': (context) => PointsScreen(),
       },
-      home: DriverHomeScreen(),
+      home: RegisterScreen(),
     );
   }
 }

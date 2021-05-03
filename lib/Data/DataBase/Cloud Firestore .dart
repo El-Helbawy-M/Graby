@@ -38,4 +38,7 @@ class DataBase {
     } catch (e) {}
     return (data != null) ? data : {};
   }
+
+  Stream<DocumentSnapshot> getDocumentSnapshot(String docPath) =>
+      this.manger.collection(this.collectionPath).doc(docPath).snapshots();
 }

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class UserHomeNavigationBar extends StatefulWidget {
-  UserHomeNavigationBar({this.parentContext});
+  UserHomeNavigationBar({this.parentContext, this.index, this.arguments});
   final BuildContext parentContext;
+  final int index;
+  final arguments;
   @override
   _UserHomeNavigationBarState createState() => _UserHomeNavigationBarState();
 }
@@ -25,18 +27,38 @@ class _UserHomeNavigationBarState extends State<UserHomeNavigationBar> {
         child: BottomNavigationBar(
           elevation: 0,
           iconSize: 30,
-          currentIndex: 1,
+          currentIndex: widget.index,
           selectedFontSize: 20,
           unselectedFontSize: 15,
           backgroundColor: Colors.blue,
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white70,
+          onTap: (index) {
+            switch (index) {
+              case 0:
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  'UserProfieScreen',
+                  (route) => false,
+                  arguments: widget.arguments,
+                );
+                break;
+              case 1:
+                break;
+              case 2:
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  'UserHomeScreen',
+                  (route) => false,
+                  arguments: widget.arguments,
+                );
+                break;
+            }
+          },
           items: [
             BottomNavigationBarItem(
               label: 'المزيد',
-              icon: Icon(
-                CupertinoIcons.ellipsis,
-              ),
+              icon: Icon(CupertinoIcons.ellipsis),
             ),
             BottomNavigationBarItem(
               label: 'الموقف',

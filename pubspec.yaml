@@ -35,7 +35,7 @@ dependencies:
   cloud_firestore: ^1.0.3
   qrscan: ^0.2.22
   permission_handler: ^6.1.1
-  
+  verify_code_input: ^1.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -55,6 +55,8 @@ flutter:
   assets:
     - final.png
     - Images/
+    - Images/App Icons/
+    - Images/App Icons/Home Icons/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

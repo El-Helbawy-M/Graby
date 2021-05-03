@@ -33,7 +33,7 @@ class LocationLayoutIcon extends StatelessWidget {
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('Images/Location Icon.png'),
+              image: AssetImage('Images/App Icons/Location Icon.png'),
             ),
           ),
         )

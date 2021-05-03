@@ -1,88 +1,59 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:graby/Data/Handlers/DriverCollectionHandler.dart';
 import 'package:graby/Data/Handlers/UserCollectionHandler.dart';
 import 'package:graby/Data/Models/Driver.dart';
 import 'package:graby/Data/Models/User.dart';
+import 'package:graby/Domain/Use%20Cases/Auther.dart';
 import 'package:graby/Layout/Screens/UserHomeScreen.dart';
+import 'package:graby/Layout/Tools/VerficationTimer.dart';
 import 'package:graby/Layout/Widgets/App%20Dialogs.dart';
+import 'package:verify_code_input/verify_code_input.dart';
 
 import '../../Data/DataBase/FireBase Auther.dart';
 
 class VerfyScreen extends StatefulWidget {
-  const VerfyScreen({this.clientData, this.auther});
+  const VerfyScreen({this.clientData, this.auther, this.phone});
   final Map<String, dynamic> clientData;
   final PhoneAuther auther;
+  final String phone;
   @override
   _VerfyScreenState createState() => _VerfyScreenState();
 }
 
 class _VerfyScreenState extends State<VerfyScreen> {
   bool check;
-  var op, userHandler;
-  List code = List.generate(6, (index) => "");
-  void writngCode(String number, int index) {
-    setState(() {
-      code[index] = number;
-      print(code);
-    });
-  }
+  User user;
+  Driver driver;
+  String code;
+  Timer timer;
+  VerficationTimer vTimer = VerficationTimer();
 
-  Future<void> createNewUser() async {
-    UserCollectionHandler handler =
-        UserCollectionHandler(widget.clientData['Phone']);
-    while (check == null)
-      check = await handler.createNewUser(widget.clientData);
-    op = User(
-      widget.clientData['Name'],
-      widget.clientData['Phone'],
-      widget.clientData['Balance'],
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(
+      Duration(seconds: 1),
+      (timer) {
+        if (vTimer.minutes == 0) {
+          timer.cancel();
+          Navigator.pop(context);
+        } else
+          vTimer.runTime();
+        setState(() {});
+      },
     );
   }
 
-  Future<void> createNewDriver() async {
-    DriverCollectionHandler handler = DriverCollectionHandler(
-      widget.clientData['Phone'],
-    );
-    while (check == null)
-      check = await handler.createNewDriver(widget.clientData);
-    op = Driver(
-      widget.clientData['Name'],
-      widget.clientData['Phone'],
-      widget.clientData['Balance'],
-      widget.clientData['Image'],
-    );
-  }
+  //======================================= Functions
+  void writngCode(String number) => setState(() => code = number);
 
-  Future<void> getUser() async {
-    while (userHandler == null) {
-      userHandler = await UserCollectionHandler(
-        widget.clientData['Phone'],
-      ).getUserData();
-      if (userHandler.isNotEmpty)
-        op = op = User(
-          userHandler['Name'],
-          userHandler['Phone'],
-          userHandler['Balance'],
-        );
-    }
-  }
-
-  Future<void> getDriver() async {
-    while (userHandler == null)
-      userHandler = await DriverCollectionHandler(
-        widget.clientData['Phone'],
-      ).getDriverData();
-    if (userHandler.isNotEmpty)
-      op = Driver(
-        userHandler['Name'],
-        userHandler['Phone'],
-        userHandler['Balance'],
-        userHandler['Image'],
-      );
-  }
+  //======================================= End
 
   @override
   Widget build(BuildContext context) {
+    Auther auther = Auther(widget.clientData, widget.phone);
     return Scaffold(
       body: SafeArea(
           child: Form(
@@ -105,7 +76,7 @@ class _VerfyScreenState extends State<VerfyScreen> {
                   style: TextStyle(color: Colors.black, fontFamily: 'Cairo'),
                   children: [
                     TextSpan(
-                      text: '\n01032153433',
+                      text: '\n${widget.phone}',
                       style: TextStyle(color: Colors.blue),
                     ),
                   ]),
@@ -117,7 +88,7 @@ class _VerfyScreenState extends State<VerfyScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('2:00'),
+                  Text('${vTimer.minutes}:${vTimer.seconds}'),
                   InkWell(
                     onTap: () {},
                     child: Text('أرسال الكود مرة اخري'),
@@ -135,43 +106,40 @@ class _VerfyScreenState extends State<VerfyScreen> {
                 height: 50,
                 child: TextButton(
                   onPressed: () async {
-                    //===================== holders
-                    String vCode = '';
-                    //===================== acts
-                    showDialog(
-                      context: context,
-                      builder: (context) => loadinDialog,
-                    );
-                    for (var s in code) vCode += s;
-                    //===================== process
-                    while (check == null) {
-                      check = await widget.auther.verifySMS(vCode);
-                    }
-                    if (check) {
-                      check = null;
-                      if (widget.clientData["Price"] == null) {
-                        await createNewUser();
-                      } else if (widget.clientData.isEmpty) {
-                        await getUser();
-                        if (userHandler.isEmpty) {
-                          userHandler = null;
-                          await getDriver();
-                        }
-                        check = true;
-                      } else {
-                        await createNewDriver();
+                    if (code.length == 6) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => loadinDialog,
+                      );
+                      while (check == null) {
+                        check = await widget.auther.verifySMS(code);
                       }
-                      Navigator.pop(context);
-                      if (check && op != null) {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => UserHomeScreen(
-                              user: op,
-                            ),
-                          ),
-                          (route) => false,
-                        );
+                      if (check) {
+                        if (widget.clientData == null) {
+                          while (this.user == null)
+                            this.user = await auther.getUser();
+                          if (this.user.isEmpty) {
+                            this.driver = await auther.getDriver();
+                          }
+                          check = true;
+                        } else if (widget.clientData["Price"] == null) {
+                          while (user == null)
+                            user = await auther.createNewUser();
+                        } else {
+                          while (driver == null)
+                            driver = await auther.createNewDriver();
+                        }
+                        Navigator.pop(context);
+
+                        if (check && (user == null || driver == null)) {
+                          timer.cancel();
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            'UserHomeScreen',
+                            (route) => false,
+                            arguments: (user.isEmpty) ? driver : user,
+                          );
+                        }
                       }
                     }
                   },
@@ -207,25 +175,32 @@ class VerfyCodeField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 30),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: List.generate(
-          6,
-          (index) => SizedBox(
-            width: 40,
-            child: TextFormField(
-              textAlign: TextAlign.center,
-              maxLength: 1,
-              decoration: InputDecoration(
-                counterText: '',
-              ),
-              onChanged: (str) {
-                onChange(str, index);
-              },
-            ),
-          ),
-        ),
+      child: VerifyCodeInput(
+        onValueChanged: onChange,
       ),
     );
   }
 }
+
+
+
+
+// Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         children: List.generate(
+//           6,
+//           (index) => SizedBox(
+//             width: 40,
+//             child: TextFormField(
+//               textAlign: TextAlign.center,
+//               maxLength: 1,
+//               decoration: InputDecoration(
+//                 counterText: '',
+//               ),
+//               onChanged: (str) {
+//                 onChange(str, index);
+//               },
+//             ),
+//           ),
+//         ),
+//       )

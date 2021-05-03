@@ -1,14 +1,15 @@
 import 'package:graby/Data/Handlers/DriverCollectionHandler.dart';
 import 'package:graby/Data/Handlers/UserCollectionHandler.dart';
+import 'package:graby/Data/Models/Driver.dart';
 import 'package:graby/Data/Models/User.dart';
+import 'package:graby/Domain/Repo/Bill.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
-import 'package:graby/Domain/Repo/DriverSide.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class PayHandler {
   //============================================== Variables
   User _passanger;
-  DriverSide _driver;
+  Driver _driver;
   DriverCollectionHandler _driverHandler;
   UserCollectionHandler _userHandler;
   //============================================== End
@@ -17,7 +18,7 @@ class PayHandler {
   }
 
   //============================================== Getters
-  DriverSide get driver => this._driver;
+  Driver get driver => this._driver;
   //============================================== End
 
   //============================================== Functions
@@ -43,12 +44,12 @@ class PayHandler {
     print(holder);
     if (holder.isNotEmpty) {
       check = true;
-      this._driver = DriverSide(
+      this._driver = Driver(
         holder['Name'],
         holder['Phone'],
-        holder['Price'],
-        holder['Image'],
         holder['Balance'],
+        holder['Image'],
+        holder['Price'],
       );
     }
     return check;
@@ -56,24 +57,29 @@ class PayHandler {
 
   Future<bool> pay() async {
     bool check1, check2;
+    print(this._passanger.points);
     while (check2 == null || check1 == null) {
       check1 = await this._userHandler.updateUser(
-          {'Balance': this._passanger.balance - this._driver.price});
-      check2 = await this
-          ._driverHandler
-          .updateDriver({'Balance': this._driver.balance + this._driver.price});
+        {
+          'Balance': this._passanger.balance - this._driver.price,
+          'Points': this._passanger.points + 1
+        },
+      );
+      check2 = await this._driverHandler.updateDriver(
+        {'Balance': this._driver.balance + this._driver.price},
+      );
+    }
+    if (check2 && check1) {
+      Bill newBill = new Bill(
+        'المنصوره',
+        'دمياط',
+        'ط د ر 1234',
+        this._passanger.phone,
+        driver: driver,
+      );
+      await newBill.addBill();
     }
     return check2 && check1;
-  }
-
-  Future<User> refreshUserData() async {
-    Map<String, dynamic> data;
-    User user;
-    while (data == null) data = await this._userHandler.getUserData();
-    if (data.isNotEmpty) {
-      user = User(data['Name'], data['Phone'], data['Balance']);
-    }
-    return user;
   }
   //============================================== End
 }

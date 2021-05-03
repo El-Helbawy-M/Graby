@@ -107,6 +107,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 'Name': name,
                                 "Phone": "+2$phone",
                                 'Balance': 0,
+                                'Points': 0,
                               }
                             : data = {
                                 'Name': name,
@@ -144,6 +145,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: InkWell(
+                          onTap: () =>
+                              Navigator.pushNamed(context, 'LoginScreen'),
                           child: Text(
                             'تسجيل الدخول',
                             style: TextStyle(

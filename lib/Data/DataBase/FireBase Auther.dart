@@ -25,6 +25,7 @@ class PhoneAuther {
         builder: (context) => VerfyScreen(
           clientData: this.data,
           auther: this,
+          phone: phone,
         ),
       ),
     );
