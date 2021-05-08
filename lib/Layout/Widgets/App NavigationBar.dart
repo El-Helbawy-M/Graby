@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:graby/Data/Models/User.dart';
 
 class UserHomeNavigationBar extends StatefulWidget {
   UserHomeNavigationBar({this.parentContext, this.index, this.arguments});
   final BuildContext parentContext;
   final int index;
-  final arguments;
+  final User arguments;
   @override
   _UserHomeNavigationBarState createState() => _UserHomeNavigationBarState();
 }

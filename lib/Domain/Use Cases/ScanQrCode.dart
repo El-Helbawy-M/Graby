@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graby/Data/Models/User.dart';
-import 'package:graby/Layout/Screens/PaymentScreen.dart';
+import 'package:graby/Layout/Screens/UserScreens/PaymentScreen.dart';
 import 'package:graby/Layout/Widgets/App%20Dialogs.dart';
 
 import 'PayFare.dart';

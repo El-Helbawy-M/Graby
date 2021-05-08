@@ -1,20 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:graby/Layout/Screens/HistoryTripsScreen.dart';
-import 'package:graby/Layout/Screens/Splash%20Screen.dart';
-import 'package:graby/Layout/Screens/Verfication%20Screen.dart';
-import 'Layout/Screens/AccountSittingsScreen.dart';
-import 'Layout/Screens/ChargingScreen.dart';
-import 'Layout/Screens/DriverHomeScreen.dart';
-import 'Layout/Screens/PointsScreen.dart';
-import 'Layout/Screens/TestScreen.dart';
-import 'Layout/Screens/UserHomeScreen.dart';
-import 'Layout/Screens/Log in Screen.dart';
-import 'Layout/Screens/Register Screen.dart';
-import 'Layout/Screens/Transfer Screen.dart';
-import 'Layout/Screens/UserProfileScreen.dart';
-import 'Layout/Screens/UserProfileScreen.dart';
-import 'Layout/Screens/Verfication Screen.dart';
+import 'package:graby/Layout/Screens/DriverScreen/DriverHomeScreen.dart';
+import 'Layout/Screens/AuthScreens/Log in Screen.dart';
+import 'Layout/Screens/AuthScreens/Register Screen.dart';
+import 'Layout/Screens/CommonScreens/Splash Screen.dart';
+import 'Layout/Screens/UserScreens/ChargingScreen.dart';
+import 'Layout/Screens/UserScreens/HistoryTripsScreen.dart';
+import 'Layout/Screens/UserScreens/PointsScreen.dart';
+import 'Layout/Screens/UserScreens/Transfer Screen.dart';
+import 'Layout/Screens/UserScreens/UserHomeScreen.dart';
+import 'Layout/Screens/UserScreens/UserProfileScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,8 +36,11 @@ class MyApp extends StatelessWidget {
         'UserProfieScreen': (context) => UserProfileScreen(),
         'UserHomeScreen': (context) => UserHomeScreen(),
         'PointsScreen': (context) => PointsScreen(),
+        "ChargingScreen": (context) => ChargingScreen(),
+        'TransferScreen': (context) => TransferScreen(),
+        'DriverHomeScreen': (context) => DriverHomeScreen(),
       },
-      home: RegisterScreen(),
+      initialRoute: 'SplashScreen',
     );
   }
 }

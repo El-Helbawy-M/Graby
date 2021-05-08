@@ -10,37 +10,34 @@ class InputField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 25),
-            child: Text(
-              label,
-              textAlign: TextAlign.right,
-              style: TextStyle(color: Colors.grey),
-            ),
-          ),
-          Row(
-            children: [
-              (label == 'رقم الهاتف')
-                  ? Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: Text(
-                        '+2',
-                        style: TextStyle(
-                          fontSize: 17,
-                        ),
-                      ),
-                    )
-                  : SizedBox(),
-              Expanded(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+          (label != null)
+              ? Padding(
+                  padding: const EdgeInsets.only(right: 25),
+                  child: Text(
+                    label,
+                    textAlign: TextAlign.right,
+                    style: TextStyle(color: Colors.grey),
                   ),
-                  elevation: 5,
+                )
+              : SizedBox(),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            elevation: 5,
+            child: Row(
+              children: [
+                (label == 'رقم الهاتف')
+                    ? Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text('+2', style: TextStyle(color: Colors.grey)),
+                      )
+                    : SizedBox(),
+                Expanded(
                   child: SizedBox(
                     height: 50,
                     child: Padding(
-                      padding: const EdgeInsets.all(15),
+                      padding: const EdgeInsets.symmetric(vertical: 15),
                       child: TextFormField(
                         obscureText: (label == 'أدخال رمز المرور' ||
                                 label == 'الرقم السري')
@@ -63,10 +60,48 @@ class InputField extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class MiniInputField extends StatelessWidget {
+  const MiniInputField({this.onChanged, this.inputType});
+  final onChanged, inputType;
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        elevation: 5,
+        child: SizedBox(
+          height: 50,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: TextFormField(
+              onChanged: onChanged,
+              keyboardType: inputType,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(style: BorderStyle.none),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(style: BorderStyle.none),
+                ),
+                hintText:
+                    (inputType == TextInputType.text) ? 'ء ب ج' : '1 2 3 4',
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

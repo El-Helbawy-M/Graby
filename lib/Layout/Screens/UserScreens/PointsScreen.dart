@@ -1,14 +1,10 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:graby/Data/Handlers/UserCollectionHandler.dart';
 import 'package:graby/Data/Models/User.dart';
 import 'package:graby/Domain/Use%20Cases/ConvertPoints.dart';
-import 'package:graby/Domain/Use%20Cases/PayFare.dart';
 import 'package:graby/Layout/Widgets/App%20AppBar.dart';
 import 'package:graby/Layout/Widgets/App%20ConfirmationButton.dart';
-import 'package:graby/Layout/Widgets/App%20Dialogs.dart';
 import 'package:graby/Layout/Widgets/App%20NavigationBar.dart';
 
 class PointsScreen extends StatefulWidget {

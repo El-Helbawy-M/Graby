@@ -14,7 +14,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool check = false;
-  String name, phone, image, state = 'user';
+  String name, phone, image, carNumber, carCharcter, state = 'user';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +77,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                 InputField(
-                  label: 'أدخال الاسم كامل',
+                  label: 'إدخال الاسم كامل',
                   inputType: TextInputType.text,
                   onChanged: (String str) => setState(() => name = str),
                 ),
@@ -86,6 +86,43 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   inputType: TextInputType.phone,
                   onChanged: (String str) => setState(() => phone = str),
                 ),
+                (check)
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 40),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 25),
+                              child: Text(
+                                'إدخال رقم السياره',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                MiniInputField(
+                                  inputType: TextInputType.phone,
+                                  onChanged: (String str) => setState(
+                                    () => carNumber = str,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                MiniInputField(
+                                  inputType: TextInputType.text,
+                                  onChanged: (String str) => setState(
+                                    () => carCharcter = str,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    : SizedBox(),
                 SizedBox(height: 50),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -102,7 +139,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         );
                         PhoneAuther auth = PhoneAuther("+2$phone", context);
                         Map<String, dynamic> data;
-                        (image == null)
+                        (!check)
                             ? data = {
                                 'Name': name,
                                 "Phone": "+2$phone",
@@ -115,7 +152,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 'Image': image,
                                 'Balance': 0,
                                 'Price': 2,
+                                'Car Number': '$carNumber  $carCharcter',
                               };
+                        print(data);
                         auth.setData(name, data);
                         await auth.signInNumber();
                       },

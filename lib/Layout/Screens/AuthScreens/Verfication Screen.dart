@@ -1,17 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:graby/Data/Handlers/DriverCollectionHandler.dart';
-import 'package:graby/Data/Handlers/UserCollectionHandler.dart';
+import 'package:graby/Data/DataBase/FireBase%20Auther.dart';
 import 'package:graby/Data/Models/Driver.dart';
 import 'package:graby/Data/Models/User.dart';
 import 'package:graby/Domain/Use%20Cases/Auther.dart';
-import 'package:graby/Layout/Screens/UserHomeScreen.dart';
 import 'package:graby/Layout/Tools/VerficationTimer.dart';
 import 'package:graby/Layout/Widgets/App%20Dialogs.dart';
 import 'package:verify_code_input/verify_code_input.dart';
-
-import '../../Data/DataBase/FireBase Auther.dart';
 
 class VerfyScreen extends StatefulWidget {
   const VerfyScreen({this.clientData, this.auther, this.phone});
@@ -133,12 +128,19 @@ class _VerfyScreenState extends State<VerfyScreen> {
 
                         if (check && (user == null || driver == null)) {
                           timer.cancel();
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            'UserHomeScreen',
-                            (route) => false,
-                            arguments: (user.isEmpty) ? driver : user,
-                          );
+                          (user == null)
+                              ? Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  'DriverHomeScreen',
+                                  (route) => false,
+                                  arguments: driver,
+                                )
+                              : Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  'UserHomeScreen',
+                                  (route) => false,
+                                  arguments: user,
+                                );
                         }
                       }
                     }

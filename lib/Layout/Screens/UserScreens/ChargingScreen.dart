@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graby/Data/Models/User.dart';
 import 'package:graby/Layout/Widgets/App%20AppBar.dart';
 import 'package:graby/Layout/Widgets/App%20ConfirmationButton.dart';
 import 'package:graby/Layout/Widgets/App%20Dialogs.dart';
@@ -15,6 +16,7 @@ class ChargingScreen extends StatefulWidget {
 class _ChargingScreenState extends State<ChargingScreen> {
   @override
   Widget build(BuildContext context) {
+    User user = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       backgroundColor: Colors.white,
       //==========================================
@@ -90,6 +92,8 @@ class _ChargingScreenState extends State<ChargingScreen> {
       //==========================================
       bottomNavigationBar: UserHomeNavigationBar(
         parentContext: context,
+        index: 2,
+        arguments: user,
       ),
     );
   }

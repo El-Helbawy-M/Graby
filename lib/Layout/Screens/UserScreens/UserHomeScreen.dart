@@ -1,18 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graby/Data/Handlers/UserCollectionHandler.dart';
 import 'package:graby/Data/Models/User.dart';
-import 'package:graby/Domain/Use%20Cases/PayFare.dart';
 import 'package:graby/Domain/Use%20Cases/ScanQrCode.dart';
-import 'package:graby/Layout/Screens/HistoryTripsScreen.dart';
-import 'package:graby/Layout/Screens/PaymentScreen.dart';
 import 'package:graby/Layout/Widgets/App%20AppBar.dart';
-import 'package:graby/Layout/Widgets/App%20Dialogs.dart';
+import 'package:graby/Layout/Widgets/App%20IconHoldr.dart';
 import 'package:graby/Layout/Widgets/App%20NavigationBar.dart';
-import 'package:graby/Layout/Screens/PointsScreen.dart';
-import 'package:qrscan/qrscan.dart';
+
+import 'PointsScreen.dart';
 
 class UserHomeScreen extends StatefulWidget {
   @override
@@ -21,12 +17,18 @@ class UserHomeScreen extends StatefulWidget {
 
 class _UserHomeScreenState extends State<UserHomeScreen> {
   //============================== Variables
-  User user;
-  Map<String, dynamic> data;
+  User user, userArgument;
   //============================== End
+  void fillUser(Map data) => user = User(
+        data['Name'],
+        data['Phone'],
+        data['Balance'],
+        data["Points"],
+      );
+
   @override
   Widget build(BuildContext context) {
-    user = ModalRoute.of(context).settings.arguments;
+    userArgument = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       backgroundColor: Colors.white,
       //==========================================
@@ -35,12 +37,11 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
       //==========================================
       //==========================================
       body: StreamBuilder<DocumentSnapshot>(
-        stream: UserCollectionHandler(user.phone).getSnapshots(),
+        stream: UserCollectionHandler(userArgument.phone).getSnapshots(),
         builder: (context, snapshot) {
           if (snapshot.data != null) {
-            data = snapshot.data.data();
-            user.balance = data['Balance'];
-            user.points = data['Points'];
+            print(snapshot.data.data()['Balance']);
+            fillUser(snapshot.data.data());
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -93,7 +94,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                     ],
                                   ),
                                   Text(
-                                    '${data['Balance']} جنيه',
+                                    '${user.balance} جنيه',
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 18,
@@ -107,7 +108,13 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                "ChargingScreen",
+                                arguments: user,
+                              );
+                            },
                             child: Card(
                               elevation: 10,
                               color: Colors.white,
@@ -273,36 +280,43 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                           ),
                         ),
                         Expanded(
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                          child: GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              'TransferScreen',
+                              arguments: user,
                             ),
-                            color: Colors.white,
-                            elevation: 10,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 10,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    'تحويل\nالفلوس',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontFamily: 'Cairo',
-                                      color: Colors.blue,
+                              color: Colors.white,
+                              elevation: 10,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 10,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      'تحويل\nالفلوس',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontFamily: 'Cairo',
+                                        color: Colors.blue,
+                                      ),
                                     ),
-                                  ),
-                                  IconHoldeer(
-                                    width: 30,
-                                    height: 30,
-                                    icon:
-                                        'Images/App Icons/Home Icons/transfer.png',
-                                  ),
-                                ],
+                                    IconHoldeer(
+                                      width: 30,
+                                      height: 30,
+                                      icon:
+                                          'Images/App Icons/Home Icons/transfer.png',
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -322,28 +336,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
       bottomNavigationBar: UserHomeNavigationBar(
         parentContext: context,
         index: 2,
-        arguments: user,
-      ),
-    );
-  }
-}
-
-class IconHoldeer extends StatelessWidget {
-  const IconHoldeer({this.height = 40, this.width = 40, this.icon});
-
-  final double width, height;
-  final icon;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(
-            icon,
-          ),
-        ),
+        arguments: (user == null) ? userArgument : user,
       ),
     );
   }

@@ -112,7 +112,7 @@ Dialog newTrip(BuildContext context, int balance) => Dialog(
                 margin: EdgeInsets.all(25),
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('Images/investment.png'),
+                    image: AssetImage('Images/App Icons/investment.png'),
                   ),
                 ),
               ),
@@ -124,3 +124,34 @@ Dialog newTrip(BuildContext context, int balance) => Dialog(
         ),
       ),
     );
+
+
+// AlertDialog covertionDone = AlertDialog(
+//   shape: CircleBorder(),
+//   content: Container(
+//     height: 150,
+//     width: 150,
+//     child: Center(
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         children: [
+//           Container(
+//             decoration: BoxDecoration(
+
+//             ),
+//           ),
+//           Text(
+//             'تم الدفع',
+//             textAlign: TextAlign.center,
+//             style: TextStyle(
+//               color: Colors.grey,
+//               fontSize: 20,
+//               fontWeight: FontWeight.w900,
+//               fontFamily: 'Cairo',
+//             ),
+//           ),
+//         ],
+//       ),
+//     ),
+//   ),
+// );

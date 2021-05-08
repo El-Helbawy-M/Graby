@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:graby/Layout/Screens/Verfication%20Screen.dart';
+import 'package:graby/Layout/Screens/AuthScreens/Verfication%20Screen.dart';
 
 class PhoneAuther {
   //================================================ Variables

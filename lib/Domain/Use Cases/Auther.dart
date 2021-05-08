@@ -15,12 +15,14 @@ class Auther {
     UserCollectionHandler handler =
         UserCollectionHandler(this.clientData['Phone']);
     while (check == null) check = await handler.createNewUser(this.clientData);
-    return User(
-      this.clientData['Name'],
-      this.clientData['Phone'],
-      this.clientData['Balance'],
-      this.clientData['Points'],
-    );
+    return (check)
+        ? User(
+            this.clientData['Name'],
+            this.clientData['Phone'],
+            this.clientData['Balance'],
+            this.clientData['Points'],
+          )
+        : User.empty();
   }
 
   Future<Driver> createNewDriver() async {
@@ -29,13 +31,16 @@ class Auther {
     );
     while (check == null)
       check = await handler.createNewDriver(this.clientData);
-    return Driver(
-      this.clientData['Name'],
-      this.clientData['Phone'],
-      this.clientData['Balance'],
-      this.clientData['Image'],
-      2,
-    );
+    return (check)
+        ? Driver(
+            this.clientData['Name'],
+            this.clientData['Phone'],
+            this.clientData['Balance'],
+            this.clientData['Image'],
+            2,
+            this.clientData['Car Number'],
+          )
+        : Driver.empty();
   }
 
   Future<User> getUser() async {
@@ -61,12 +66,12 @@ class Auther {
       ).getDriverData();
     if (this.userHandler.isNotEmpty)
       return Driver(
-        this.userHandler['Name'],
-        this.userHandler['Phone'],
-        this.userHandler['Balance'],
-        this.userHandler['Image'],
-        2,
-      );
+          this.userHandler['Name'],
+          this.userHandler['Phone'],
+          this.userHandler['Balance'],
+          this.userHandler['Image'],
+          2,
+          this.clientData['Car Number']);
     else
       return Driver.empty();
   }

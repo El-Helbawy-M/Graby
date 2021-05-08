@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graby/Data/Models/User.dart';
 import 'package:graby/Layout/Tools/CollectionOfSittingOptions.dart';
 import 'package:graby/Layout/Widgets/App%20AppBar.dart';
@@ -50,7 +49,7 @@ class _UserProfileScreenState extends State<UserProfileScreen>
                 ),
               ),
               Text(
-                'محمد علي',
+                user.name,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.blue,

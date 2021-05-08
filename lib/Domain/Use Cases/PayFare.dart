@@ -44,13 +44,8 @@ class PayHandler {
     print(holder);
     if (holder.isNotEmpty) {
       check = true;
-      this._driver = Driver(
-        holder['Name'],
-        holder['Phone'],
-        holder['Balance'],
-        holder['Image'],
-        holder['Price'],
-      );
+      this._driver = Driver(holder['Name'], holder['Phone'], holder['Balance'],
+          holder['Image'], holder['Price'], holder['Car Number']);
     }
     return check;
   }

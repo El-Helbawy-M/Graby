@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:graby/Data/Models/Driver.dart';
 import 'package:graby/Data/Models/User.dart';
 import 'package:graby/Layout/Widgets/App%20AppBar.dart';
 import 'package:graby/Layout/Widgets/App%20NavigationBar.dart';
@@ -80,6 +79,7 @@ class _HistroyTripsScreenState extends State<HistroyTripsScreen> {
       bottomNavigationBar: UserHomeNavigationBar(
         parentContext: context,
         index: 2,
+        arguments: userPhone,
       ),
     );
   }

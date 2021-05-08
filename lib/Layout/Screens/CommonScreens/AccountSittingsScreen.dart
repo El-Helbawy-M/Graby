@@ -126,6 +126,7 @@ class _AccountSittingsScreenState extends State<AccountSittingsScreen> {
   }
 }
 
+// ignore: must_be_immutable
 class AccountSittingsElement extends StatelessWidget {
   AccountSittingsElement({this.data, this.label}) {
     if (label == 'كلمة المرور') {

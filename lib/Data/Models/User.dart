@@ -1,15 +1,15 @@
 class User {
-  User(this._name, this._phone, this._balance, this._points);
+  User(this.name, this._phone, this._balance, this._points);
   User.empty() {
     this.isEmpty = true;
   }
   //=================================== Variables
-  String _name, _phone;
+  String name, _phone;
   int _balance, _points;
   bool isEmpty = false;
   //=================================== End
   //===================== Getters
-  String get name => this._name;
+  // String get name => this.name;
   String get phone => this._phone;
   int get balance => this._balance;
   int get points => this._points;
