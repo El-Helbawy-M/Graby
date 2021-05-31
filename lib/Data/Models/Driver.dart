@@ -1,20 +1,11 @@
 class Driver {
-  Driver(this._name, this._phone, this._balance, this._imagePath, this._price,
-      this._carNumber);
+  Driver(this.name, this.phone, this.balance, this.imagePath, this.price, this.carNumber, this.startPoint, this.endPoint);
   Driver.empty() {
     this.isEmpty = true;
   }
   //=================================== Variables
-  String _name, _imagePath, _phone, _carNumber;
-  int _balance, _price;
+  String name, imagePath, phone, carNumber, endPoint, startPoint;
+  int balance, price;
   bool isEmpty = false;
   //=================================== End
-  //===================== Getters
-  String get name => this._name;
-  String get imagePath => this._imagePath;
-  String get phone => this._phone;
-  String get carNumber => this._carNumber;
-  int get balance => this._balance;
-  int get price => this._price;
-  //===================== End
 }

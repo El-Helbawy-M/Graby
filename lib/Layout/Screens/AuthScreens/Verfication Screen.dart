@@ -4,6 +4,7 @@ import 'package:graby/Data/DataBase/FireBase%20Auther.dart';
 import 'package:graby/Data/Models/Driver.dart';
 import 'package:graby/Data/Models/User.dart';
 import 'package:graby/Domain/Use%20Cases/Auther.dart';
+import 'package:graby/Domain/Use%20Cases/Remember.dart';
 import 'package:graby/Layout/Tools/VerficationTimer.dart';
 import 'package:graby/Layout/Widgets/App%20Dialogs.dart';
 import 'package:verify_code_input/verify_code_input.dart';
@@ -31,7 +32,7 @@ class _VerfyScreenState extends State<VerfyScreen> {
     timer = Timer.periodic(
       Duration(seconds: 1),
       (timer) {
-        if (vTimer.minutes == 0) {
+        if (vTimer.minutes == 0 && vTimer.seconds == 0) {
           timer.cancel();
           Navigator.pop(context);
         } else
@@ -66,15 +67,12 @@ class _VerfyScreenState extends State<VerfyScreen> {
               ),
             ),
             RichText(
-              text: TextSpan(
-                  text: 'سيتم ارسال كود التأكيد إلي هذا الرقم',
-                  style: TextStyle(color: Colors.black, fontFamily: 'Cairo'),
-                  children: [
-                    TextSpan(
-                      text: '\n${widget.phone}',
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                  ]),
+              text: TextSpan(text: 'سيتم ارسال كود التأكيد إلي هذا الرقم', style: TextStyle(color: Colors.black, fontFamily: 'Cairo'), children: [
+                TextSpan(
+                  text: '\n${widget.phone}',
+                  style: TextStyle(color: Colors.blue),
+                ),
+              ]),
               textAlign: TextAlign.center,
             ),
             VerfyCodeField(onChange: writngCode),
@@ -111,36 +109,37 @@ class _VerfyScreenState extends State<VerfyScreen> {
                       }
                       if (check) {
                         if (widget.clientData == null) {
-                          while (this.user == null)
-                            this.user = await auther.getUser();
+                          while (this.user == null) this.user = await auther.getUser();
                           if (this.user.isEmpty) {
                             this.driver = await auther.getDriver();
                           }
                           check = true;
                         } else if (widget.clientData["Price"] == null) {
-                          while (user == null)
-                            user = await auther.createNewUser();
+                          while (user == null) user = await auther.createNewUser();
                         } else {
-                          while (driver == null)
-                            driver = await auther.createNewDriver();
+                          while (driver == null) driver = await auther.createNewDriver();
                         }
                         Navigator.pop(context);
 
-                        if (check && (user == null || driver == null)) {
+                        if (check && (user != null || driver != null)) {
                           timer.cancel();
-                          (user == null)
-                              ? Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  'DriverHomeScreen',
-                                  (route) => false,
-                                  arguments: driver,
-                                )
-                              : Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  'UserHomeScreen',
-                                  (route) => false,
-                                  arguments: user,
-                                );
+                          if ((user == null || user.isEmpty) && !driver.isEmpty) {
+                            Remember().setUDNumber(driver.phone);
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              'DriverHomeScreen',
+                              (route) => false,
+                              arguments: driver,
+                            );
+                          } else if (!user.isEmpty) {
+                            Remember().setUDNumber(user.phone);
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              'UserHomeScreen',
+                              (route) => false,
+                              arguments: user,
+                            );
+                          }
                         }
                       }
                     }

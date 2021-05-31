@@ -1,0 +1,12 @@
+{
+    "editor.minimap.maxColumn": 200,
+    "workbench.editor.centeredLayoutAutoResize": false,
+    "editor.rulers": [
+
+    
+    ],
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 10000000,
+    "dart.lineLength": 10000,
+    "javascript.format.placeOpenBraceOnNewLineForFunctions": true
+}

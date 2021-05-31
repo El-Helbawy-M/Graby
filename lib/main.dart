@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:graby/Layout/Screens/DriverScreen/DriverHomeScreen.dart';
+import 'package:graby/Layout/Screens/UserScreens/GoogleMapScreen.dart';
 import 'Layout/Screens/AuthScreens/Log in Screen.dart';
 import 'Layout/Screens/AuthScreens/Register Screen.dart';
 import 'Layout/Screens/CommonScreens/Splash Screen.dart';
+import 'Layout/Screens/DriverScreen/DriverProfileScreen.dart';
 import 'Layout/Screens/UserScreens/ChargingScreen.dart';
 import 'Layout/Screens/UserScreens/HistoryTripsScreen.dart';
 import 'Layout/Screens/UserScreens/PointsScreen.dart';
@@ -29,16 +31,18 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
+        'SplashScreen': (context) => SplashScreen(),
         'LoginScreen': (context) => LoginScreen(),
         'RegisterScreen': (context) => RegisterScreen(),
-        'SplashScreen': (context) => SplashScreen(),
-        'HistoryScreen': (context) => HistroyTripsScreen(),
-        'UserProfieScreen': (context) => UserProfileScreen(),
         'UserHomeScreen': (context) => UserHomeScreen(),
+        'UserProfieScreen': (context) => UserProfileScreen(),
+        'HistoryScreen': (context) => HistroyTripsScreen(),
         'PointsScreen': (context) => PointsScreen(),
         "ChargingScreen": (context) => ChargingScreen(),
+        'MapScreen': (context) => MapScreen(),
         'TransferScreen': (context) => TransferScreen(),
         'DriverHomeScreen': (context) => DriverHomeScreen(),
+        'DriverProfileScreen': (context) => DriverProfileScreen(),
       },
       initialRoute: 'SplashScreen',
     );

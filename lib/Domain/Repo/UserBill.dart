@@ -2,7 +2,7 @@ import 'package:graby/Data/Handlers/UserBillCollectionHandler.dart';
 import 'package:graby/Data/Models/Driver.dart';
 import 'package:graby/Domain/Repo/DriverLite.dart';
 
-class Bill {
+class UserBill {
   //======================== Variables
   final String startPoint, endPoint, carId, phone;
   Driver driver;
@@ -10,7 +10,7 @@ class Bill {
   UserBillCollectionHandler handler = UserBillCollectionHandler();
   DateTime dateTime;
   //======================== End
-  Bill(this.startPoint, this.endPoint, this.carId, this.phone,
+  UserBill(this.startPoint, this.endPoint, this.carId, this.phone,
       {this.driver, this.driverLite});
 
   //======================== Functions

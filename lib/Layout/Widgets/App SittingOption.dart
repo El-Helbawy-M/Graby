@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SittingOption extends StatelessWidget {
-  const SittingOption({
-    this.title,
-    this.iconPath,
-    this.onTap,
-  });
-  final title, iconPath, onTap;
+  const SittingOption({this.title, this.iconPath, this.onTap, this.value});
+  final title, iconPath, onTap, value;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,12 +24,13 @@ class SittingOption extends StatelessWidget {
             padding: EdgeInsets.all(5),
             child: Row(
               children: [
-                (title != "تسجيل الخروج")
-                    ? Icon(
-                        FontAwesomeIcons.angleLeft,
-                        color: Colors.grey,
-                      )
-                    : SizedBox(),
+                if (title == 'محفظتك')
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: Text(value.toString(), style: TextStyle(color: Colors.green)),
+                  )
+                else if (title != "تسجيل الخروج")
+                  Icon(FontAwesomeIcons.angleLeft, color: Colors.grey),
                 Expanded(child: SizedBox()),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),

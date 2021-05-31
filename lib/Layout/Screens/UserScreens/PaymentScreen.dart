@@ -87,6 +87,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ),
                       Stack(
                         alignment: Alignment.center,
+                        // ignore: deprecated_member_use
                         overflow: Overflow.visible,
                         children: [
                           Container(
@@ -133,8 +134,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     horizontal: 10,
                                   ),
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         widget.handler.driver.phone,

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:graby/Data/Models/Driver.dart';
 import 'package:graby/Data/Models/User.dart';
 
 class UserHomeNavigationBar extends StatefulWidget {
@@ -37,22 +38,13 @@ class _UserHomeNavigationBarState extends State<UserHomeNavigationBar> {
           onTap: (index) {
             switch (index) {
               case 0:
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  'UserProfieScreen',
-                  (route) => false,
-                  arguments: widget.arguments,
-                );
+                Navigator.pushNamedAndRemoveUntil(context, 'UserProfieScreen', (route) => false, arguments: widget.arguments);
                 break;
               case 1:
+                Navigator.pushNamedAndRemoveUntil(context, 'MapScreen', (route) => false, arguments: widget.arguments);
                 break;
               case 2:
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  'UserHomeScreen',
-                  (route) => false,
-                  arguments: widget.arguments,
-                );
+                Navigator.pushNamedAndRemoveUntil(context, 'UserHomeScreen', (route) => false, arguments: widget.arguments);
                 break;
             }
           },
@@ -77,11 +69,13 @@ class _UserHomeNavigationBarState extends State<UserHomeNavigationBar> {
 }
 
 class DriverHomeNavigationBar extends StatefulWidget {
-  DriverHomeNavigationBar({this.parentContext});
+  DriverHomeNavigationBar({this.parentContext, this.arguments, this.index, this.function});
   final BuildContext parentContext;
+  final int index;
+  final Driver arguments;
+  final Function function;
   @override
-  _DriverHomeNavigationBarState createState() =>
-      _DriverHomeNavigationBarState();
+  _DriverHomeNavigationBarState createState() => _DriverHomeNavigationBarState();
 }
 
 class _DriverHomeNavigationBarState extends State<DriverHomeNavigationBar> {
@@ -100,12 +94,23 @@ class _DriverHomeNavigationBarState extends State<DriverHomeNavigationBar> {
         child: BottomNavigationBar(
           elevation: 0,
           iconSize: 30,
-          currentIndex: 1,
+          currentIndex: widget.index,
           selectedFontSize: 20,
           unselectedFontSize: 15,
           backgroundColor: Colors.blue,
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white70,
+          onTap: (index) {
+            if (widget.function != null) widget.function();
+            switch (index) {
+              case 0:
+                Navigator.pushNamedAndRemoveUntil(context, 'DriverProfileScreen', (route) => false, arguments: widget.arguments);
+                break;
+              case 1:
+                Navigator.pushNamedAndRemoveUntil(context, 'DriverHomeScreen', (route) => false, arguments: widget.arguments);
+                break;
+            }
+          },
           items: [
             BottomNavigationBarItem(
               label: 'المزيد',

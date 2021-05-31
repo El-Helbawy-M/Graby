@@ -1,22 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graby/Data/Models/User.dart';
+import 'package:graby/Data/Models/Driver.dart';
 import 'package:graby/Layout/Tools/CollectionOfSittingOptions.dart';
 import 'package:graby/Layout/Widgets/App%20AppBar.dart';
 import 'package:graby/Layout/Widgets/App%20NavigationBar.dart';
 import 'package:graby/Layout/Widgets/App%20SittingOption.dart';
 
-class UserProfileScreen extends StatefulWidget {
-  UserProfileScreen({Key key}) : super(key: key);
+class DriverProfileScreen extends StatefulWidget {
+  DriverProfileScreen({Key key}) : super(key: key);
 
   @override
-  _UserProfileScreenState createState() => _UserProfileScreenState();
+  _DriverProfileScreenState createState() => _DriverProfileScreenState();
 }
 
-class _UserProfileScreenState extends State<UserProfileScreen> with SittingOptions {
+class _DriverProfileScreenState extends State<DriverProfileScreen> with SittingOptions {
   @override
   Widget build(BuildContext context) {
-    final User user = ModalRoute.of(context).settings.arguments;
+    final Driver driver = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: appBar,
       //=============================================
@@ -48,7 +48,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> with SittingOptio
                 ),
               ),
               Text(
-                user.name,
+                driver.name,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.blue,
@@ -59,14 +59,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> with SittingOptio
                 height: 20,
               ),
               Column(
-                children: sittingOptionsElements(false)
+                children: sittingOptionsElements(true)
                     .entries
                     .map(
-                      (option) => SittingOption(
-                        title: option.key,
-                        iconPath: option.value,
-                        onTap: sittingOptionsFunctions(context)[option.key],
-                      ),
+                      (option) => SittingOption(title: option.key, iconPath: option.value, onTap: sittingOptionsFunctions(context)[option.key], value: (option.key == "محفظتك") ? driver.balance : null),
                     )
                     .toList(),
               ),
@@ -79,54 +75,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> with SittingOptio
       ),
       //=============================================
       //=============================================
-      bottomNavigationBar: UserHomeNavigationBar(
+      bottomNavigationBar: DriverHomeNavigationBar(
         parentContext: context,
         index: 0,
-        arguments: user,
+        arguments: driver,
       ),
     );
   }
 }
-
-// SittingOption(
-//               title: "إعدادات الحساب",
-//               iconPath: 'Images/sittingsicons.png',
-//             ),
-//             Divider(
-//               thickness: 3,
-//               color: Color(0xff909090),
-//               height: 0,
-//             ),
-//             SittingOption(
-//               title: "مركز المساعده",
-//               iconPath: 'Images/sittingsicons.png',
-//             ),
-//             Divider(
-//               thickness: 3,
-//               color: Color(0xff909090),
-//               height: 0,
-//             ),
-//             SittingOption(
-//               title: "الابلاغ عن مشكله",
-//               iconPath: 'Images/sittingsicons.png',
-//             ),
-//             Divider(
-//               thickness: 3,
-//               color: Color(0xff909090),
-//               height: 0,
-//             ),
-//             SittingOption(
-//               title: "اعرف عن التطبيق",
-//               iconPath: 'Images/sittingsicons.png',
-//             ),
-//             Divider(
-//               thickness: 3,
-//               color: Color(0xff909090),
-//               height: 0,
-//             ),
-//             SittingOption(
-//               title: "تسجيل الخروج",
-//               iconPath: 'Images/sittingsicons.png',
-//             ),
-
-

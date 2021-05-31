@@ -40,7 +40,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
         stream: UserCollectionHandler(userArgument.phone).getSnapshots(),
         builder: (context, snapshot) {
           if (snapshot.data != null) {
-            print(snapshot.data.data()['Balance']);
             fillUser(snapshot.data.data());
             return SingleChildScrollView(
               child: Column(
@@ -81,8 +80,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                       Container(
                                         width: 40,
                                         height: 40,
-                                        margin:
-                                            EdgeInsets.only(left: 25, top: 7),
+                                        margin: EdgeInsets.only(left: 25, top: 7),
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
                                             image: AssetImage(
@@ -112,7 +110,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                               Navigator.pushNamed(
                                 context,
                                 "ChargingScreen",
-                                arguments: user,
+                                arguments: (user == null) ? userArgument : user,
                               );
                             },
                             child: Card(
@@ -139,8 +137,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                     IconHoldeer(
                                       width: 30,
                                       height: 30,
-                                      icon:
-                                          'Images/App Icons/Home Icons/business.png',
+                                      icon: 'Images/App Icons/Home Icons/business.png',
                                     ),
                                     SizedBox(width: 10),
                                   ],
@@ -149,6 +146,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                             ),
                           ),
                         ),
+                        SizedBox(width: 10)
                       ],
                     ),
                   ),
@@ -180,8 +178,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                               icon: Icon(
                                 CupertinoIcons.camera_fill,
                               ),
-                              onPressed: () async =>
-                                  await Scanner(context, user).scan(),
+                              onPressed: () async => await Scanner(context, user).scan(),
                               color: Color(0xff8e8e8e),
                             ),
                           )
@@ -201,7 +198,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                             onTap: () async => user = await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => PointsScreen(user: user),
+                                builder: (context) => PointsScreen(user: (user == null) ? userArgument : user),
                               ),
                             ),
                             child: Card(
@@ -215,8 +212,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                   vertical: 26,
                                 ),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
                                       'نقاطي',
@@ -230,8 +226,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                     IconHoldeer(
                                       width: 30,
                                       height: 30,
-                                      icon:
-                                          'Images/App Icons/Home Icons/increase.png',
+                                      icon: 'Images/App Icons/Home Icons/increase.png',
                                     ),
                                   ],
                                 ),
@@ -244,7 +239,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                             onTap: () => Navigator.pushNamed(
                               context,
                               'HistoryScreen',
-                              arguments: user,
+                              arguments: (user == null) ? userArgument : user,
                             ),
                             child: Card(
                               shape: RoundedRectangleBorder(
@@ -255,8 +250,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                               child: Padding(
                                 padding: EdgeInsets.symmetric(vertical: 10),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
                                       'الرحلات\nالسابقه',
@@ -270,8 +264,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                     IconHoldeer(
                                       width: 30,
                                       height: 30,
-                                      icon:
-                                          'Images/App Icons/Home Icons/road.png',
+                                      icon: 'Images/App Icons/Home Icons/road.png',
                                     ),
                                   ],
                                 ),
@@ -284,7 +277,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                             onTap: () => Navigator.pushNamed(
                               context,
                               'TransferScreen',
-                              arguments: user,
+                              arguments: (user == null) ? userArgument : user,
                             ),
                             child: Card(
                               shape: RoundedRectangleBorder(
@@ -297,8 +290,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                   vertical: 10,
                                 ),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
                                       'تحويل\nالفلوس',
@@ -312,8 +304,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                     IconHoldeer(
                                       width: 30,
                                       height: 30,
-                                      icon:
-                                          'Images/App Icons/Home Icons/transfer.png',
+                                      icon: 'Images/App Icons/Home Icons/transfer.png',
                                     ),
                                   ],
                                 ),

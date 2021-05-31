@@ -14,7 +14,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool check = false;
-  String name, phone, image, carNumber, carCharcter, state = 'user';
+  String name, phone, image, carNumber, carCharcter, state = 'user', startPoint, endpoint;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,8 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: SizedBox(
                                 width: 90,
                                 height: 90,
-                                child: Icon(CupertinoIcons.camera_fill,
-                                    size: 50, color: Colors.grey),
+                                child: Icon(CupertinoIcons.camera_fill, size: 50, color: Colors.grey),
                               ),
                               elevation: 10,
                             ),
@@ -86,43 +85,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   inputType: TextInputType.phone,
                   onChanged: (String str) => setState(() => phone = str),
                 ),
-                (check)
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                if (check)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 25),
+                          child: Text('إدخال رقم السياره', textAlign: TextAlign.right, style: TextStyle(color: Colors.grey)),
+                        ),
+                        Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 25),
-                              child: Text(
-                                'إدخال رقم السياره',
-                                textAlign: TextAlign.right,
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                MiniInputField(
-                                  inputType: TextInputType.phone,
-                                  onChanged: (String str) => setState(
-                                    () => carNumber = str,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 30,
-                                ),
-                                MiniInputField(
-                                  inputType: TextInputType.text,
-                                  onChanged: (String str) => setState(
-                                    () => carCharcter = str,
-                                  ),
-                                ),
-                              ],
-                            ),
+                            MiniInputField(inputType: TextInputType.phone, onChanged: (String str) => setState(() => carNumber = str)),
+                            SizedBox(width: 30),
+                            MiniInputField(inputType: TextInputType.text, onChanged: (String str) => setState(() => carCharcter = str)),
                           ],
                         ),
-                      )
-                    : SizedBox(),
+                      ],
+                    ),
+                  ),
+                if (check) InputField(label: 'نقطة البدايه', inputType: TextInputType.text, onChanged: (String str) => setState(() => startPoint = str)),
+                if (check) InputField(label: 'نقطة النهايه', inputType: TextInputType.text, onChanged: (String str) => setState(() => endpoint = str)),
                 SizedBox(height: 50),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -146,15 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 'Balance': 0,
                                 'Points': 0,
                               }
-                            : data = {
-                                'Name': name,
-                                'Phone': "+2$phone",
-                                'Image': image,
-                                'Balance': 0,
-                                'Price': 2,
-                                'Car Number': '$carNumber  $carCharcter',
-                              };
-                        print(data);
+                            : data = {'Name': name, 'Phone': "+2$phone", 'Image': image, 'Balance': 0, 'Price': 2, 'Car Number': '$carNumber  $carCharcter', 'Start Point': startPoint, 'End Point': endpoint};
                         auth.setData(name, data);
                         await auth.signInNumber();
                       },
@@ -184,8 +160,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: InkWell(
-                          onTap: () =>
-                              Navigator.pushNamed(context, 'LoginScreen'),
+                          onTap: () => Navigator.pushNamed(context, 'LoginScreen'),
                           child: Text(
                             'تسجيل الدخول',
                             style: TextStyle(

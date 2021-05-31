@@ -14,7 +14,6 @@ class _HistroyTripsScreenState extends State<HistroyTripsScreen> {
   @override
   Widget build(BuildContext context) {
     final User userPhone = ModalRoute.of(context).settings.arguments;
-    print(userPhone.phone);
     return Scaffold(
       appBar: appBar,
       //==========================================
@@ -39,19 +38,22 @@ class _HistroyTripsScreenState extends State<HistroyTripsScreen> {
             ),
             Expanded(
               child: StreamBuilder<DocumentSnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('User Tribes')
-                    .doc(userPhone.phone)
-                    .get()
-                    .asStream(),
+                stream: FirebaseFirestore.instance.collection('User Tribes').doc(userPhone.phone).get().asStream(),
                 builder: (context, snapshot) {
                   if (snapshot.data != null) {
-                    print(snapshot.data.data());
+                    List data = snapshot.data.data().values.toList();
+                    data.sort(
+                      (a, b) {
+                        var first = a['Date Time'];
+                        var second = b['Date Time'];
+                        return second.compareTo(first);
+                      },
+                    );
+                    // print(data);
                     return ListView(
                       shrinkWrap: true,
-                      children: snapshot.data
-                          .data()
-                          .values
+                      reverse: false,
+                      children: data
                           .map(
                             (billData) => TripCard(
                               data: billData,
